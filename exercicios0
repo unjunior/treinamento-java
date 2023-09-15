@@ -1,0 +1,17 @@
+1. O que são variáveis locais?
+São variavéis dentro de um escopo de um método
+
+2.Quais os tipos de dados primitivos da linguagem Java?
+byte, short, int, long, float, double, char, boolean
+
+3. O que são bytecodes?
+código compilado e interpretado para a maquina virtual java
+
+4. O que é uma referência?
+São tipos de dados tipo classes que aceitam null, ex: STRING, utilizam o operdor new
+
+5. O que é Garbage Collection?
+processo que automatiza o gerenciamento de memória de um programa em execução
+
+6. Qual a necessidade de adotar um padrão de codificação?
+facilitar a integração da equipe, facilitar leitura do código
