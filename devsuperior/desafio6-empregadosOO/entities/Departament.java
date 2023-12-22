@@ -41,10 +41,6 @@ public class Departament {
 		this.address = address;
 	}
 
-	public List<Employee> getEmployees() {
-		return employees;
-	}
-	
 	public void addEmployee(Employee employee) {
 		employees.add(employee);
 	}
@@ -63,9 +59,15 @@ public class Departament {
 	}
 	
 	public String toString() {
+		StringBuilder sb = new StringBuilder();
 		for(Employee e : employees) {
-			e.getName();
+			sb.append(e.getName() + "\n");
 		}
-		return getName();
+		
+		return sb.toString();
 	}
 }
+
+
+
+
