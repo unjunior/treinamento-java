@@ -33,16 +33,17 @@ public class Program {
 
 		for (int i = 1; i <= quant; i++) {
 			System.out.println("Dados do funcionário " + i + ": ");
+			s.nextLine();
 			System.out.print("Nome: ");
 			String nomeFunc = s.nextLine();
-			s.nextLine();
+			
 			System.out.print("Salario: ");
 			Double salario = s.nextDouble();
 			Employee emp = new Employee(nomeFunc, salario);
 			dept.addEmployee(emp);
 
 		}
-
+		System.out.println();
 		System.out.println("FOLHA DE PAGAMENTO:");
 		showReport(dept);
 		s.close();
@@ -51,11 +52,11 @@ public class Program {
 
 	public static void showReport(Departament dept) {
 
-		System.out.println("Departamento Vendas = " + dept.payroll());
+		System.out.printf("Departamento Vendas = R$ %.2f%n", dept.payroll());
 		System.out.println("Pagamento realizado no dia " + dept.getPayDay());
 
 		System.out.println("Funcionários: ");
-		
+		System.out.println(dept);
 
 		System.out.println("Para dúvidas favor entrar em contato: " + dept.getAddress().getEmail());
 	}
