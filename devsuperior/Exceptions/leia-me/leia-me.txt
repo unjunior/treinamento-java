@@ -1,6 +1,7 @@
 Proposta de melhoria no exercicio de reserva de quartos, utilizando exceção personalizada no tratamento de exceções.
-Algumas funciolidades foram alteradas no exercício resolvido no curso Devsuperior. 
+Algumas funcionalidades foram alteradas no exercício resolvido no curso Devsuperior. 
 
+Melhorias
 1- Foi utilizado a classe LocalDate para as datas
 2- Foi utilizado a classe Duration para calcular a duração em dias entre a data de checkin e checkout
 3- Foram utilizados os métodos isBefore e isAfter para realizar checagem das datas informadas
