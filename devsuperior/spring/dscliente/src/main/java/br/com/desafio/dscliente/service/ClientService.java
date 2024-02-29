@@ -36,7 +36,14 @@ public class ClientService {
         entity = repositoty.save(entity);
         return new ClientDTO(entity);
     }
+    @Transactional
+    public ClientDTO update (Long id, ClientDTO dto){
 
+        Client entity = repositoty.getReferenceById(id);
+        copyDtoToEntity(dto, entity);
+        entity = repositoty.save(entity);
+        return new ClientDTO(entity);
+    }
     private void copyDtoToEntity(ClientDTO dto, Client entity) {
         entity.setName(dto.getName());
         entity.setCpf(dto.getCpf());
@@ -44,4 +51,6 @@ public class ClientService {
         entity.setBirthDate(dto.getBirthDate());
         entity.setChildren(dto.getChildren());
     }
+
+
 }
