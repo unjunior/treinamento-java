@@ -3,7 +3,7 @@ package br.com.desafio.dscliente.service;
 import br.com.desafio.dscliente.dto.ClientDTO;
 import br.com.desafio.dscliente.entities.Client;
 import br.com.desafio.dscliente.repository.ClientRepositoty;
-import br.com.desafio.dscliente.service.exceptions.RecursoNaoEncontrado;
+import br.com.desafio.dscliente.service.exceptions.ResourceNotFound;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ public class ClientService {
     @Transactional(readOnly = true)
     public ClientDTO finbById(Long id){
         Client client = repositoty.findById(id).orElseThrow(
-                () -> new RecursoNaoEncontrado("O recurso não foi encontrado"));
+                () -> new ResourceNotFound("O recurso não foi encontrado"));
         return new ClientDTO(client);
     }
 
@@ -47,13 +47,13 @@ public class ClientService {
             return new ClientDTO(entity);
         }
         catch (EntityNotFoundException e){
-            throw new RecursoNaoEncontrado("Recurso não encontrado para update");
+            throw new ResourceNotFound("Recurso não encontrado para update");
         }
     }
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id){
         if(!repositoty.existsById(id)){
-            throw new RecursoNaoEncontrado("Recurso não encontrado para delete!");
+            throw new ResourceNotFound("Recurso não encontrado para delete!");
         }
        repositoty.deleteById(id);
     }
