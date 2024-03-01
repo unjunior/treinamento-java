@@ -3,13 +3,14 @@ package br.com.desafio.dscliente.service;
 import br.com.desafio.dscliente.dto.ClientDTO;
 import br.com.desafio.dscliente.entities.Client;
 import br.com.desafio.dscliente.repository.ClientRepositoty;
+import br.com.desafio.dscliente.service.exceptions.RecursoNaoEncontrado;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class ClientService {
@@ -19,7 +20,8 @@ public class ClientService {
 
     @Transactional(readOnly = true)
     public ClientDTO finbById(Long id){
-        Client client = repositoty.findById(id).get();
+        Client client = repositoty.findById(id).orElseThrow(
+                () -> new RecursoNaoEncontrado("O recurso não foi encontrado"));
         return new ClientDTO(client);
     }
 
@@ -38,14 +40,21 @@ public class ClientService {
     }
     @Transactional
     public ClientDTO update (Long id, ClientDTO dto){
-
-        Client entity = repositoty.getReferenceById(id);
-        copyDtoToEntity(dto, entity);
-        entity = repositoty.save(entity);
-        return new ClientDTO(entity);
+        try {
+            Client entity = repositoty.getReferenceById(id);
+            copyDtoToEntity(dto, entity);
+            entity = repositoty.save(entity);
+            return new ClientDTO(entity);
+        }
+        catch (EntityNotFoundException e){
+            throw new RecursoNaoEncontrado("Recurso não encontrado para update");
+        }
     }
-    @Transactional
+    @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id){
+        if(!repositoty.existsById(id)){
+            throw new RecursoNaoEncontrado("Recurso não encontrado para delete!");
+        }
        repositoty.deleteById(id);
     }
     private void copyDtoToEntity(ClientDTO dto, Client entity) {
